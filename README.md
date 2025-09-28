@@ -71,3 +71,21 @@ else
     if computer === scissor
         if human === rock allora punto human e esco dal ciclo
         punto computer e esco dal ciclo
+
+
+### Partita completa
+
+per giocare una partita completa devo fare in modo che il computer e l'umano facciano cinque volte la loro scelta, successivamente si deve chiamare la funzione di round pper tutte e cinque le volte. 
+dopo provo anche a introdurre la meccanica del pareggio (in qui si ripete il turno in caso di pareggio)
+
+#### Pseudocode
+
+ciclo da 0 a 5
+    scelta computer = computerChoice()
+    scelta humano = humanChoice(user prompt)
+    if(playround === 'tie')
+        step -- (riepto il ciclo una volta in piú)
+if computerScore > humanScore
+    Il computer ha vinto
+else
+    Complimenti hai vinto
