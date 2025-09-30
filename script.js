@@ -27,28 +27,13 @@ function createUI(){
 
 const uiElements = createUI();
 
-function addEventListener(ui){
-    ui.btnRock.addEventListener('click', () => {
-        playRound(possibleChoice[0],ui);
-    });
-    
-    ui.btnPaper.addEventListener('click' ,() =>{
-        playRound(possibleChoice[1], ui);
-    });
-
-    ui.btnScissor.addEventListener('click', () => {
-        playRound(possibleChoice[2], ui);
-    });
-}
-
 // GAME
 const possibleChoice = ['rock','paper', 'scissor'];
 let computerScore = 0;
 let humanScore = 0;
 
-
 function updateScore(divScore, humanScore, computerScore){
-
+    divScore.textContent = 'Punteggio giocatore: ' + humanScore + ' | ' + 'Punteggio computer: ' + computerScore;
 }
 
 // Logica per la scelta del computer
@@ -71,43 +56,61 @@ function humanChoice(choice){
     return choice;
 }
 
+function printWinner(ui){
+    const winner = computerScore > humanScore ? 'computer' : 'human';
+    ui.divScore.textContent = 'We have a winner ' + winner;
+    
+    // per disabilitare i bottoni dopo la vittoria
+    ui.btnRock.disabled = true;
+    ui.btnPaper.disabled = true;
+    ui.btnScissor.disabled = true;
+}
+
 function playRound(human, ui){
     let computer = computerChoice();
     console.log(computer + ' vs ' + human);
     // pareggio, restituisco null per indicare di rifare il round
-    if (computer === human){
-        return 'tie';
+    if (computer === human){'tie';
+        updateScore(ui.divScore, humanScore, computerScore);
+        return;
     }
 
     // controllo casistica
-    if(computer === possibleChoice[0]){
-        if(human === possibleChoice[1]){
-            humanScore +=1;
-            return; // so giá come é andata la partita, ritorno alla chiamante
-        }
-        computerScore += 1;
-        return; // so giá come é andata la partita, ritorno alla chiamante
+    if (
+        (human === 'rock' && computer === 'scissor') ||
+        (human === 'paper' && computer === 'rock') ||
+        (human === 'scissor' && computer === 'paper')
+    ){
+        humanScore++;
+    }else{
+        computerScore++;
     }
-    if(computer === possibleChoice[1]){
-        if(human === possibleChoice[2]){
-            humanScore += 1;
-            return;
-        }
-        computerScore += 1;
-        return;
+
+    updateScore(ui.divScore, humanScore, computerScore);
+
+    if(humanScore >= 5 || computerScore >= 5){
+        printWinner(ui);
     }
-    if (computer === possibleChoice[2]){
-        if(human === possibleChoice[0]){
-            humanScore += 1;
-            return;
-        }
-        computerScore += 1;
-        return;
-    }
-    ui.divScore.textContent = "diocane";
+    return;
+}
+
+function addEventListener(ui){
+    ui.btnRock.addEventListener('click', () => {
+        playRound(possibleChoice[0],ui);
+    });
+    
+    ui.btnPaper.addEventListener('click' ,() =>{
+        playRound(possibleChoice[1], ui);
+    });
+
+    ui.btnScissor.addEventListener('click', () => {
+        playRound(possibleChoice[2], ui);
+    });
 }
 
 
-
 addEventListener(uiElements);
+
+updateScore(uiElements.divScore, humanScore ,computerScore);
+
 
