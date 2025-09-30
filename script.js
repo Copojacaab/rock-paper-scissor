@@ -60,21 +60,30 @@ function playRound(){
 
 }
 
-function playGame(){
-    computerScore = 0;
-    humanScore = 0;
-
-    for(let step = 0; step < 5; step++){
-        round = playRound();
-        if (round === 'tie'){
-            step--;
-        }
-    }    
-    console.log('Computer Score: ' + computerScore + ' Human score: ' + humanScore);
+// UI
+function createUI(){
+    const div = document.createElement('div');
     
-    if(computerScore > humanScore){
-        console.log('Il computer ha vinto');
-    }else{
-        console.log('Complimenti! Hai vinto');
-    }
+
+    const btnRock = document.createElement('button');
+    const btnPaper = document.createElement('button');
+    const btnScissor = document.createElement('button');
+    btnRock.textContent = 'Pick Rock';
+    btnPaper.textContent = 'Pick Paper';
+    btnScissor.textContent = 'Pick Scissors';
+
+    btnRock.id = 'rock_button';
+    btnPaper.id = 'paper_button';
+    btnScissor.id = 'scissor_button';
+
+    div.appendChild(btnRock);
+    div.appendChild(btnPaper);
+    div.appendChild(btnScissor);
+
+    document.body.appendChild(div);
 }
+
+function btnEventListener(){
+    btnRock.addEventListener()
+}
+createUI();
